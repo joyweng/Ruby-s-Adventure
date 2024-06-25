@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8289483158897967661}
   - component: {fileID: 8291763468647579226}
   - component: {fileID: 5525002641403039795}
+  - component: {fileID: 6636876223066996408}
   m_Layer: 0
   m_Name: CollectibleHealth
   m_TagString: Untagged
@@ -143,3 +144,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 494e0e58f380ae247b6427513417280b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &6636876223066996408
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8289944520502693632}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 31924fbc1599c504bb746064fdb2c6f2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
