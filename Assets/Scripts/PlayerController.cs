@@ -36,6 +36,21 @@ public class PlayerController : MonoBehaviour
         horizontal = Input.GetAxis("Horizontal");
         vertical = Input.GetAxis("Vertical");
 
+        //
+        Vector2 moveVector = new Vector2(horizontal, vertical);
+        if (horizontal != 0 || vertical != 0)
+        {
+            lookDirection = moveVector;
+        }
+        if (lookDirection.x < 0) { lookDirection.x = -1; }
+        animator.SetFloat("Look X", lookDirection.x);
+        animator.SetFloat("Look Y", lookDirection.y);
+        animator.SetFloat("Speed", moveVector.magnitude);
+
+        Vector2 position = rigidbody2d.position;
+        position += moveVector * speed * Time.deltaTime;
+        rigidbody2d.MovePosition(position);
+
         //無敵時間判斷
         if (isInvincible)
         {
@@ -45,19 +60,7 @@ public class PlayerController : MonoBehaviour
                 isInvincible = false;//倒計時結束，取消無敵狀態
             }
         }
-        //
-        Vector2 moveDirection = new Vector2(horizontal, vertical);
-        if (horizontal != 0 || vertical != 0)
-        {
-            lookDirection = moveDirection;
-        }
-        animator.SetFloat("Look X", lookDirection.x);
-        animator.SetFloat("Look Y", lookDirection.y);
-        animator.SetFloat("Speed", moveDirection.magnitude);
-
-        Vector2 position = rigidbody2d.position;
-        position += moveDirection * speed * Time.deltaTime;
-        rigidbody2d.MovePosition(position);
+       
     }
 
     void FixedUpdate()
