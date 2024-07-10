@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     //玩家的朝向 默認右方
     private Vector2 lookDirection = new Vector2(1, 0);
+    public GameObject bulletPrefab; //子彈
 
     // Start is called before the first frame update
     void Start()
@@ -43,6 +44,9 @@ public class PlayerController : MonoBehaviour
             lookDirection = moveVector;
         }
         if (lookDirection.x < 0) { lookDirection.x = -1; }
+        if (lookDirection.x > 0) { lookDirection.x = 1; }
+        if (lookDirection.y < 0) { lookDirection.y = -1; }
+        if (lookDirection.y > 0) { lookDirection.y = 1; }
         animator.SetFloat("Look X", lookDirection.x);
         animator.SetFloat("Look Y", lookDirection.y);
         animator.SetFloat("Speed", moveVector.magnitude);
@@ -61,6 +65,18 @@ public class PlayerController : MonoBehaviour
             }
         }
        
+        //按下J鍵發射子彈
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            animator.SetTrigger("Launch");
+            GameObject bullet = Instantiate(bulletPrefab, rigidbody2d.position + Vector2.up * 0.5f, Quaternion.identity);
+            BulletController bc = bullet.GetComponent<BulletController>();
+            if (bc != null)
+            {
+                bc.Move(lookDirection, 300);
+            }
+        }
+
     }
 
     void FixedUpdate()

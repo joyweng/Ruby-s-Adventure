@@ -319,7 +319,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 03cbc5c7b3be88a43b5df671e720b367, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -15430,6 +15430,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1015183598416489927, guid: c3135c840c6d4284a9d7a96d4a940e9a, type: 3}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 8022747154998486934, guid: a8593d49494052649b56601530aa9b5b, type: 3}
     - target: {fileID: 1938150478165566236, guid: c3135c840c6d4284a9d7a96d4a940e9a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.71
@@ -15473,6 +15477,10 @@ PrefabInstance:
     - target: {fileID: 3136726488029247724, guid: c3135c840c6d4284a9d7a96d4a940e9a, type: 3}
       propertyPath: m_Name
       value: ruby
+      objectReference: {fileID: 0}
+    - target: {fileID: 3136726488029247724, guid: c3135c840c6d4284a9d7a96d4a940e9a, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6861937116053714679, guid: c3135c840c6d4284a9d7a96d4a940e9a, type: 3}
       propertyPath: m_SleepingMode
