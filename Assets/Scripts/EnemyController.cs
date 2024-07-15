@@ -8,6 +8,7 @@ public class EnemyController : MonoBehaviour
     public float speed;//移動速度
     public bool vertical;
     public float changeTime = 4.0f;
+    public ParticleSystem brokenEffect;//損壞特效
 
     // Private variables
     private Rigidbody2D rigidbody2d;
@@ -72,6 +73,10 @@ public class EnemyController : MonoBehaviour
     public void Fix()
     {
         isFixed = true;
+        if (brokenEffect.isPlaying == true)
+        {
+            brokenEffect.Stop();
+        }
         rigidbody2d.simulated = false;  //禁用物理
         animator.SetTrigger("fix");
     }
