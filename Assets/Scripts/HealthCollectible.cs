@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class HealthCollectible : MonoBehaviour
 {
+    public ParticleSystem collectEffect;//拾取特效
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +28,7 @@ public class HealthCollectible : MonoBehaviour
             if (controller.MyCurrentHealth < controller.MyMaxHealth)
             {
                 controller.ChangeHealth(1);
+                Instantiate(collectEffect, transform.position, Quaternion.identity);//生成特效
                 Destroy(this.gameObject);
             }
         }
