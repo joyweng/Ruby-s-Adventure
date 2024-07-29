@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
         invincibleTimer = 0;
         rigidbody2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        UImanager.instance.UpdateHealthBar(currentHealth, maxHealth);//更新血條
     }
 
     // Update is called once per frame
@@ -105,6 +106,7 @@ public class PlayerController : MonoBehaviour
 
         //把玩家的生命值約束在0與最大值之間
         currentHealth = Mathf.Clamp(currentHealth += amount, 0, maxHealth);
+        UImanager.instance.UpdateHealthBar(currentHealth, maxHealth);//更新血條
         Debug.Log("Health: " + currentHealth + "/" + maxHealth);
     }
 }
