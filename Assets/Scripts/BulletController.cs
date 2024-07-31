@@ -5,18 +5,13 @@ using UnityEngine;
 public class BulletController : MonoBehaviour
 {
     Rigidbody2D rbody;
+    public AudioClip hitClip;//擊中物體音效
     
     // Start is called before the first frame update
     void Awake()
     {
         rbody = GetComponent<Rigidbody2D>();
         Destroy(this.gameObject, 2f);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void Move(Vector2 moveDirection, float moveForce)
@@ -26,6 +21,7 @@ public class BulletController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
+        AudioManager.instance.AudioPlay(hitClip);//播放擊中音效
         EnemyController ec = other.gameObject.GetComponent<EnemyController>();
         if (ec != null) 
         {

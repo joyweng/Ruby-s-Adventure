@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour
     //玩家的朝向 默認右方
     private Vector2 lookDirection = new Vector2(1, 0);
     public GameObject bulletPrefab; //子彈
+    public AudioClip hurtClip;//受傷音效
+    public AudioClip launchClip;//發射子彈音效
 
     // Start is called before the first frame update
     void Start()
@@ -70,6 +72,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.J))
         {
             animator.SetTrigger("Launch");
+            AudioManager.instance.AudioPlay(launchClip);//播放發射音效
             GameObject bullet = Instantiate(bulletPrefab, rigidbody2d.position + Vector2.up * 0.5f, Quaternion.identity);
             BulletController bc = bullet.GetComponent<BulletController>();
             if (bc != null)
@@ -102,6 +105,7 @@ public class PlayerController : MonoBehaviour
             isInvincible = true;
             invincibleTimer = invincibleTime;
             animator.SetTrigger("Hit");
+            AudioManager.instance.AudioPlay(hurtClip);//播放受傷音效
         }
 
         //把玩家的生命值約束在0與最大值之間

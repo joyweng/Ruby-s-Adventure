@@ -9,6 +9,7 @@ public class EnemyController : MonoBehaviour
     public bool vertical;
     public float changeTime = 4.0f;
     public ParticleSystem brokenEffect;//損壞特效
+    public AudioClip fixClip;//修復音效
 
     // Private variables
     private Rigidbody2D rigidbody2d;
@@ -73,6 +74,7 @@ public class EnemyController : MonoBehaviour
     public void Fix()
     {
         isFixed = true;
+        AudioManager.instance.AudioPlay(fixClip);//播放修復音效
         if (brokenEffect.isPlaying == true)
         {
             brokenEffect.Stop();

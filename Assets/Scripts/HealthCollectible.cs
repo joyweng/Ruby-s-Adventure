@@ -5,18 +5,8 @@ using UnityEngine;
 public class HealthCollectible : MonoBehaviour
 {
     public ParticleSystem collectEffect;//拾取特效
+    public AudioClip collectClip;//拾取音效
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -29,6 +19,7 @@ public class HealthCollectible : MonoBehaviour
             {
                 controller.ChangeHealth(1);
                 Instantiate(collectEffect, transform.position, Quaternion.identity);//生成特效
+                AudioManager.instance.AudioPlay(collectClip);//播放拾取音效
                 Destroy(this.gameObject);
             }
         }

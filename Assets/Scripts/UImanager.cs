@@ -8,7 +8,7 @@ public class UImanager : MonoBehaviour
     //³æ¨Ò¼Ò¦¡
     public static UImanager instance {  get; private set; }
 
-    void Start()
+    void Awake()
     {
         instance = this;
     }
