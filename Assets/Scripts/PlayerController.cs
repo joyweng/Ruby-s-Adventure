@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour
     public GameObject bulletPrefab; //子彈
     public AudioClip hurtClip;//受傷音效
     public AudioClip launchClip;//發射子彈音效
+    public AudioClip footstepClip; // 腳步聲音效
+    private AudioSource audioSource; // 音效源
 
     // Start is called before the first frame update
     void Start()
@@ -30,6 +32,7 @@ public class PlayerController : MonoBehaviour
         invincibleTimer = 0;
         rigidbody2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>(); // 獲取音效源
         UImanager.instance.UpdateHealthBar(currentHealth, maxHealth);//更新血條
     }
 
@@ -78,6 +81,24 @@ public class PlayerController : MonoBehaviour
             if (bc != null)
             {
                 bc.Move(lookDirection, 300);
+            }
+        }
+
+        // 播放腳步聲
+        if (moveVector.magnitude > 0)
+        {
+            if (!audioSource.isPlaying || audioSource.clip != footstepClip)
+            {
+                audioSource.clip = footstepClip;
+                audioSource.loop = true;
+                audioSource.Play();
+            }
+        }
+        else
+        {
+            if (audioSource.clip == footstepClip)
+            {
+                audioSource.Stop();
             }
         }
 

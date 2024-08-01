@@ -17,6 +17,7 @@ public class EnemyController : MonoBehaviour
     private int direction = 1;//方向 1 or -1
     private Animator animator;
     private bool isFixed;
+    private AudioSource audioSource;
 
 
     // Start is called before the first frame update
@@ -26,6 +27,7 @@ public class EnemyController : MonoBehaviour
         speed = 18;
         changeTimer = changeTime;
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
         isFixed = false;
     }
 
@@ -80,6 +82,11 @@ public class EnemyController : MonoBehaviour
             brokenEffect.Stop();
         }
         rigidbody2d.simulated = false;  //禁用物理
+        // 停止播放音頻
+        if (audioSource != null)
+        {
+            audioSource.Stop();
+        }
         animator.SetTrigger("fix");
     }
 }
