@@ -61,14 +61,26 @@ public class PlayerController : MonoBehaviour
         position += moveVector * speed * Time.deltaTime;
         rigidbody2d.MovePosition(position);
 
+        // 播放腳步聲
+        if (moveVector.magnitude > 0)
+        {
+            if (!audioSource.isPlaying || audioSource.clip != footstepClip)
+            {
+                audioSource.clip = footstepClip;
+                audioSource.loop = true;
+                audioSource.Play();
+            }
+        }
+        else
+        {
+            if (audioSource.clip == footstepClip){ audioSource.Stop();}
+        }
+
         //無敵時間判斷
         if (isInvincible)
         {
             invincibleTimer -= Time.deltaTime;
-            if (invincibleTimer < 0)
-            {
-                isInvincible = false;//倒計時結束，取消無敵狀態
-            }
+            if (invincibleTimer < 0){ isInvincible = false; } //倒計時結束，取消無敵狀態
         }
        
         //按下J鍵發射子彈
@@ -84,21 +96,14 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        // 播放腳步聲
-        if (moveVector.magnitude > 0)
+        //按下E鍵與NPC交互
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            if (!audioSource.isPlaying || audioSource.clip != footstepClip)
+            RaycastHit2D hit = Physics2D.Raycast(rigidbody2d.position, lookDirection, 2f, LayerMask.GetMask("NPC"));
+            if (hit.collider !=  null)
             {
-                audioSource.clip = footstepClip;
-                audioSource.loop = true;
-                audioSource.Play();
-            }
-        }
-        else
-        {
-            if (audioSource.clip == footstepClip)
-            {
-                audioSource.Stop();
+                NPCmanager npc = hit.collider.GetComponent<NPCmanager>();
+                if (npc != null) { npc.ShowDialog(); }//顯示對話框
             }
         }
 
