@@ -11,8 +11,12 @@ public class PlayerController : MonoBehaviour
     private float vertical;     //for垂直移動
     private int maxHealth = 5;  //最大生命值
     private int currentHealth;  //當前生命值
+    private int maxBulletCount = 99;//最大子彈數
+    private int currentBulletCount;//當前子彈數
     public int MyMaxHealth { get { return maxHealth; } }
     public int MyCurrentHealth { get { return currentHealth; } }
+    public int MyMaxBulletCount { get { return maxBulletCount; } }
+    public int MyCurrentBulletCount { get { return currentBulletCount; } }
     private float invincibleTime = 2f;//無敵時間
     private float invincibleTimer;//無敵時間計時器
     private bool isInvincible;//是否處於無敵狀態
@@ -28,12 +32,14 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currentHealth = 2;
+        currentHealth = 2;//初始有2格血量
+        UImanager.instance.UpdateHealthBar(currentHealth, maxHealth);//更新血條
+        currentBulletCount = 0;//初始沒有子彈
+        UImanager.instance.UpdateBulletCount(currentBulletCount, maxBulletCount);//更新子彈UI
         invincibleTimer = 0;
         rigidbody2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>(); // 獲取音效源
-        UImanager.instance.UpdateHealthBar(currentHealth, maxHealth);//更新血條
     }
 
     // Update is called once per frame
@@ -83,9 +89,10 @@ public class PlayerController : MonoBehaviour
             if (invincibleTimer < 0){ isInvincible = false; } //倒計時結束，取消無敵狀態
         }
        
-        //按下J鍵發射子彈
-        if (Input.GetKeyDown(KeyCode.J))
+        //按下J鍵發射子彈，當前子彈數要大於0
+        if (Input.GetKeyDown(KeyCode.J) && currentBulletCount > 0)
         {
+            ChangeBulletCount(-1);//每次攻擊減少一顆子彈
             animator.SetTrigger("Launch");
             AudioManager.instance.AudioPlay(launchClip);//播放發射音效
             GameObject bullet = Instantiate(bulletPrefab, rigidbody2d.position + Vector2.up * 0.5f, Quaternion.identity);
@@ -139,4 +146,11 @@ public class PlayerController : MonoBehaviour
         UImanager.instance.UpdateHealthBar(currentHealth, maxHealth);//更新血條
         Debug.Log("Health: " + currentHealth + "/" + maxHealth);
     }
+
+    public void ChangeBulletCount(int amount)
+    {
+        currentBulletCount = Mathf.Clamp(currentBulletCount += amount, 0, maxBulletCount);//將當前子彈數約束在0~最大值之間
+        UImanager.instance.UpdateBulletCount(currentBulletCount, maxBulletCount);//更新子彈數UI
+    }
+
 }
