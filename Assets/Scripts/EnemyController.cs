@@ -29,6 +29,7 @@ public class EnemyController : MonoBehaviour
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
         isFixed = false;
+        AudioManager.instance.UpdateEnemyCount(1);//敵人總數+1
     }
 
 
@@ -77,6 +78,7 @@ public class EnemyController : MonoBehaviour
     {
         isFixed = true;
         AudioManager.instance.AudioPlay(fixClip);//播放修復音效
+        AudioManager.instance.UpdateFixedCount(1);//修復敵人數+1
         if (brokenEffect.isPlaying == true)
         {
             brokenEffect.Stop();
