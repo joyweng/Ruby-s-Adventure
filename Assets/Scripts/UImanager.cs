@@ -34,7 +34,7 @@ public class UImanager : MonoBehaviour
         // 檢查是否按下 ESC 鍵
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            ToggleQuitPanel(true);
+            quitPanel.SetActive(true);
         }
     }
 
@@ -56,10 +56,7 @@ public class UImanager : MonoBehaviour
     {
         bulletCountText.text = curAmount.ToString() + " / " + maxAmount.ToString();
     }
-    public void ToggleQuitPanel(bool show)//控制離開詢問UI的顯示與否
-    {
-        quitPanel.SetActive(show);
-    }
+
     public void ConfirmQuit()//確認離開遊戲，若在unity編輯器中則停止運行遊戲，若在打包後的遊戲中則關閉遊戲程式
     {
         #if UNITY_EDITOR
@@ -70,7 +67,7 @@ public class UImanager : MonoBehaviour
     }
     public void CancelQuit()//取消離開遊戲
     {
-        ToggleQuitPanel(false);
+        quitPanel.SetActive(false);
     }
 
 }
